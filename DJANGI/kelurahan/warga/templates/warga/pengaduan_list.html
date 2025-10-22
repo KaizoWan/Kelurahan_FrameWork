@@ -20,6 +20,10 @@
                             <strong>Pelapor:</strong> {{ pengaduan.pelapor.nama_lengkap }} |
                             <strong>Tanggal:</strong> {{ pengaduan.tanggal_lapor|date:"d M Y" }}
                         </small>
+                        <div class="mt-2">
+                            <a href="{% url 'pengaduan_edit' pengaduan.pk %}" class="btn btn-warning btn-sm">Edit</a>
+                            <a href="{% url 'pengaduan_delete' pengaduan.pk %}" class="btn btn-danger btn-sm">Hapus</a>
+                        </div>
                     </li>
                 {% endfor %}
             </ul>

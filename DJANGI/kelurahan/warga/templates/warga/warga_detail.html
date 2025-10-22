@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Documentssssss</title>
+    <title>Warga Detail</title>
 </head>
 <body>
     <h1>Detail Warga</h1>
@@ -18,6 +18,12 @@
       <li>Belum ada pengaduan.</li>
       {% endfor %}
     </ul>
+
+    <h1>Detail Warga: {{ object.nama_lengkap }}</h1>
+
+    <a href="{% url 'warga_edit' object.pk %}">Edit Data</a>
+    <a href="{% url 'warga_hapus' object.pk %}">Hapus Data</a>
+    <hr>
 
 </body>
 </html>
