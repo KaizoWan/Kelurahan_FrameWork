@@ -1,9 +1,12 @@
 from django.shortcuts import render
 from django.views.generic import ListView,DetailView
+from rest_framework.generics import RetrieveAPIView
 from .models import Warga,Pengaduan
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .forms import WargaForm, PengaduanForm
+from rest_framework.generics import ListAPIView
+from .serializers import WargaSerializer
 
 class WargaListView(ListView):
     model = Warga
@@ -47,3 +50,11 @@ class PengaduanDeleteView(DeleteView):
     model = Pengaduan
     template_name = 'warga/pengaduan_confirm_delete.html'
     success_url = reverse_lazy('pengaduan_list')
+
+class WargaListAPIView(ListAPIView):
+    queryset = Warga.objects.all()
+    serializer_class = WargaSerializer
+
+class WargaDetailAPIView(RetrieveAPIView):
+    queryset = Warga.objects.all()
+    serializer_class = WargaSerializer
