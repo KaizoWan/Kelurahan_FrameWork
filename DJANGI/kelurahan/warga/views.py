@@ -1,12 +1,14 @@
+
 from django.shortcuts import render
-from django.views.generic import ListView,DetailView
-from rest_framework.generics import RetrieveAPIView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from rest_framework.generics import ListAPIView, RetrieveAPIView
 from .models import Warga,Pengaduan
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .forms import WargaForm, PengaduanForm
-from rest_framework.generics import ListAPIView
-from .serializers import WargaSerializer
+from .serializers import WargaSerializer, PengaduanSerializer
+from rest_framework import viewsets
+
+
 
 class WargaListView(ListView):
     model = Warga
@@ -51,10 +53,18 @@ class PengaduanDeleteView(DeleteView):
     template_name = 'warga/pengaduan_confirm_delete.html'
     success_url = reverse_lazy('pengaduan_list')
 
-class WargaListAPIView(ListAPIView):
-    queryset = Warga.objects.all()
+# class WargaListAPIView(ListAPIView):
+#     queryset = Warga.objects.all()
+#     serializer_class = WargaSerializer
+
+# class WargaDetailAPIView(RetrieveAPIView):
+#     queryset = Warga.objects.all()
+#     serializer_class = WargaSerializer
+
+class WargaViewSet(viewsets.ModelViewSet):
+    queryset = Warga.objects.all().order_by('tanggal_registrasi')
     serializer_class = WargaSerializer
 
-class WargaDetailAPIView(RetrieveAPIView):
-    queryset = Warga.objects.all()
-    serializer_class = WargaSerializer
+class PengaduanViewSet(viewsets.ModelViewSet):
+    queryset = Pengaduan.objects.all().order_by('tanggal_pengaduan')
+    serializer_class = PengaduanSerializer
